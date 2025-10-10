@@ -1,8 +1,6 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -97,7 +95,31 @@ public class FinancialTracker {
      * Store the amount as-is (positive) and append to the file.
      */
     private static void addDeposit(Scanner scanner) {
-        // TODO
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true));
+            System.out.println("Please enter the date and time of the transaction(yyyy-MM-dd HH:mm:ss): ");
+            String[] dateAndTime =  scanner.nextLine().split(" ");
+            LocalDate date = LocalDate.parse(dateAndTime[0], DATE_FMT);
+            LocalTime time = LocalTime.parse((dateAndTime[1]),TIME_FMT);
+            System.out.println("Please enter the description:");
+            String description = scanner.nextLine();
+            System.out.println("Please enter the vendor:");
+            String vendor = scanner.nextLine();
+            double amount = 0;
+            //Validation that's making sure that here deposit is positive
+            do {
+                System.out.println("Please enter the positive amount:");
+                 amount = parseDouble(scanner.nextLine());
+            } while (amount < 0);
+
+            Transaction transaction = new Transaction(date, time, description, vendor, amount);
+            transactions.add(transaction);
+            System.out.println(vendor + " has been added to the transactions");
+            writer.write(transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
+            writer.close();
+        } catch (Exception e){
+            System.out.println("File transactions is not found");
+        }
 
     }
 
