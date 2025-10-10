@@ -78,9 +78,7 @@ public class FinancialTracker {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] transaction = line.split("\\|");
-                LocalDate date = LocalDate.parse(transaction[0], DATE_FMT);
-                LocalTime time = LocalTime.parse(transaction[1],TIME_FMT);
-                transactions.add(new Transaction(date, time, transaction[2], transaction[3], parseDouble(transaction[4])));
+                transactions.add(new Transaction(parseDate(transaction[0]), parseTime(transaction[1]), transaction[2], transaction[3], parseDouble(transaction[4])));
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
@@ -195,12 +193,22 @@ public class FinancialTracker {
         //        vendor, and exact amount, then display matches
     }
 
-    /* ------------------------------------------------------------------
-       Utility parsers (you can reuse in many places)
-       ------------------------------------------------------------------ */
+    /**
+     * This method takes string and converts it to LocalDate
+     * @param s - String that should contain LocalDate
+     * @return - LocalDate that was it inputted string
+     */
     private static LocalDate parseDate(String s) {
-        /* TODO – return LocalDate or null */
-        return null;
+        return LocalDate.parse(s, DATE_FMT);
+    }
+
+    /**
+     * This method takes string and converts it to LocalTime
+     * @param s - String that should contain LocalTime
+     * @return - LocalTime that was it inputted string
+     */
+    private static LocalTime parseTime (String s) {
+        return LocalTime.parse(s,TIME_FMT);
     }
 
     /**
