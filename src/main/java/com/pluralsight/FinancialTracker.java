@@ -89,10 +89,10 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
 
     /**
-     * Prompt for ONE date+time string in the format
-     * "yyyy-MM-dd HH:mm:ss", plus description, vendor, amount.
+     * Prompt for ONE date+time string in the format "yyyy-MM-dd HH:mm:ss", description, vendor, amount.
      * Validate that the amount entered is positive.
      * Store the amount as-is (positive) and append to the file.
+     * @param scanner - scanner used to prompts user
      */
     private static void addDeposit(Scanner scanner) {
         try {
@@ -115,7 +115,7 @@ public class FinancialTracker {
             Transaction transaction = new Transaction(date, time, description, vendor, amount);
             transactions.add(transaction);
             System.out.println(vendor + " has been added to the transactions");
-            writer.write(transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
+            writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
             writer.close();
         } catch (Exception e){
             System.out.println("File transactions is not found");
