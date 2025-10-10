@@ -80,8 +80,7 @@ public class FinancialTracker {
                 String[] transaction = line.split("\\|");
                 LocalDate date = LocalDate.parse(transaction[0], DATE_FMT);
                 LocalTime time = LocalTime.parse(transaction[1],TIME_FMT);
-                double amount = Double.parseDouble(transaction[4]);
-                transactions.add(new Transaction(date, time, transaction[2], transaction[3], amount));
+                transactions.add(new Transaction(date, time, transaction[2], transaction[3], parseDouble(transaction[4])));
             }
         } catch (Exception e) {
             System.out.println("Something went wrong");
@@ -204,9 +203,13 @@ public class FinancialTracker {
         return null;
     }
 
+    /**
+     * This method takes string and converts it to double
+     * @param s - String that should contain double
+     * @return - double that was it inputted string
+     */
     private static Double parseDouble(String s) {
-        /* TODO – return Double   or null */
-        return null;
+        return Double.parseDouble(s);
     }
 }
  
