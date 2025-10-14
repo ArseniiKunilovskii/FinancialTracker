@@ -295,7 +295,10 @@ public class FinancialTracker {
                     LocalDate end = LocalDate.of(year, 12, 31);
                     filterTransactionsByDate(start, end);
                 }
-                case "5" -> {/* TODO – prompt for vendor then report */ }
+                case "5" -> {
+                    System.out.println("Please enter name of the vendor:");
+                    filterTransactionsByVendor(scanner.nextLine());
+                }
                 case "6" -> customSearch(scanner);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option");
