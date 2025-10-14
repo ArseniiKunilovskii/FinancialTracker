@@ -114,11 +114,11 @@ public class FinancialTracker {
 
             Transaction transaction = new Transaction(date, time, description, vendor, amount);
             transactions.add(transaction);
-            System.out.println(vendor + " has been added to the transactions");
             writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
             writer.close();
+            System.out.println("New deposit has been added to the transactions");
         } catch (Exception e){
-            System.out.println("File transactions is not found");
+            System.out.println("Something went wrong! Please try again.");
         }
 
     }
@@ -129,7 +129,31 @@ public class FinancialTracker {
      * then converted to a negative amount before storing.
      */
     private static void addPayment(Scanner scanner) {
-        // TODO
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true));
+            System.out.println("Please enter the date and time of the transaction(yyyy-MM-dd HH:mm:ss): ");
+            String[] dateAndTime =  scanner.nextLine().split(" ");
+            LocalDate date = LocalDate.parse(dateAndTime[0], DATE_FMT);
+            LocalTime time = LocalTime.parse((dateAndTime[1]),TIME_FMT);
+            System.out.println("Please enter the description:");
+            String description = scanner.nextLine();
+            System.out.println("Please enter the vendor:");
+            String vendor = scanner.nextLine();
+            double amount = 0;
+            //Validation that's making sure that here deposit is positive
+            do {
+                System.out.println("Please enter the negative amount:");
+                amount = parseDouble(scanner.nextLine());
+            } while (amount > 0);
+
+            Transaction transaction = new Transaction(date, time, description, vendor, amount);
+            transactions.add(transaction);
+            writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
+            writer.close();
+            System.out.println("New payment has been added to the transactions");
+        } catch (Exception e){
+            System.out.println("Something went wrong! Please try again.");
+        }
     }
 
     /* ------------------------------------------------------------------
