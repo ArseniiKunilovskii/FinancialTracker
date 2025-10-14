@@ -190,12 +190,12 @@ public class FinancialTracker {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("transactions.csv"));
             String line;
-            String formatString = "%-12s| %-10s| %-28s| %-18s| %-10s|\n";
+            String formatString = "%-12s| %-10s| %-28s| %-20s| %-10s|";
             System.out.println("===================================================================================================");
             System.out.printf((formatString) + "%n", "Date", "Time", "Description", "Vendor", "Amount");
             while ((line = reader.readLine()) != null) {
                 String[] transaction = line.split("\\|");
-                System.out.printf("%-12s| %-10s| %-28s| %-18s| %-10s|\n", transaction[0], transaction[1], transaction[2], transaction[3], transaction[4]);
+                System.out.printf((formatString) + "%n", transaction[0], transaction[1], transaction[2], transaction[3], transaction[4]);
             }
             System.out.println("===================================================================================================");
         } catch (Exception e) {
