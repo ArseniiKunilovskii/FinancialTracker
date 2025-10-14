@@ -306,6 +306,12 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Reporting helpers
        ------------------------------------------------------------------ */
+
+    /**
+     * Prints out the transactions within date range
+     * @param start - LocalDate - from when method should start
+     * @param end - LocalDate -  to when method should end.
+     */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         System.out.println("=========================================================================================");
         System.out.println("Date        | Time      | Description                 | Vendor              | Amount    |");
@@ -322,6 +328,10 @@ public class FinancialTracker {
         System.out.println("=========================================================================================");
     }
 
+    /**
+     * Prints out the transactions from the selected vendor
+     * @param vendor - vendor from which all transactions should be printed
+     */
     private static void filterTransactionsByVendor(String vendor) {
         System.out.println("=========================================================================================");
         System.out.println("Date        | Time      | Description                 | Vendor              | Amount    |");
@@ -383,6 +393,13 @@ public class FinancialTracker {
         String formatString = "%-12s| %-10s| %-28s| %-20s| %-10s|";
         System.out.printf((formatString) + "%n", transaction.getDate(), transaction.getTime(), transaction.getDescription(), transaction.getVendor(), transaction.getAmount());
     }
+
+    /**
+     * This method return number of days in month
+     * @param month - int value of month (1 - January...)
+     * @param isLeapYear - boolean variable that indicates if year is leap year.
+     * @return - return number of days as int.
+     */
     private static int numberOfDays(int month, boolean isLeapYear){
         switch (month){
             case 1, 3, 5, 7, 8,10, 12 -> {
