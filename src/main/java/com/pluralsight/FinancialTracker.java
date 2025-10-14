@@ -188,14 +188,12 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void displayLedger() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("transactions.csv"));
-            String line;
             String formatString = "%-12s| %-10s| %-28s| %-20s| %-10s|";
             System.out.println("===================================================================================================");
             System.out.printf((formatString) + "%n", "Date", "Time", "Description", "Vendor", "Amount");
-            while ((line = reader.readLine()) != null) {
-                String[] transaction = line.split("\\|");
-                System.out.printf((formatString) + "%n", transaction[0], transaction[1], transaction[2], transaction[3], transaction[4]);
+            for (int i = transactions.size()-1; i > 0 ; i--) {
+                Transaction tr = transactions.get(i);
+                System.out.printf((formatString) + "%n", tr.getDate(), tr.getTime(), tr.getDescription(), tr.getVendor(), tr.getAmount());
             }
             System.out.println("===================================================================================================");
         } catch (Exception e) {
@@ -203,9 +201,39 @@ public class FinancialTracker {
         }
     }
 
-    private static void displayDeposits() { /* TODO – only amount > 0               */ }
+    private static void displayDeposits() {
+        try {
+            String formatString = "%-12s| %-10s| %-28s| %-20s| %-10s|";
+            System.out.println("===================================================================================================");
+            System.out.printf((formatString) + "%n", "Date", "Time", "Description", "Vendor", "Amount");
+            for (int i = transactions.size()-1; i > 0 ; i--) {
+                Transaction tr = transactions.get(i);
+                if(tr.getAmount()>0) {
+                    System.out.printf((formatString) + "%n", tr.getDate(), tr.getTime(), tr.getDescription(), tr.getVendor(), tr.getAmount());
+                }
+            }
+            System.out.println("===================================================================================================");
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
 
-    private static void displayPayments() { /* TODO – only amount < 0               */ }
+    private static void displayPayments() {
+        try {
+        String formatString = "%-12s| %-10s| %-28s| %-20s| %-10s|";
+        System.out.println("===================================================================================================");
+        System.out.printf((formatString) + "%n", "Date", "Time", "Description", "Vendor", "Amount");
+        for (int i = transactions.size()-1; i > 0 ; i--) {
+            Transaction tr = transactions.get(i);
+            if(tr.getAmount()<0) {
+                System.out.printf((formatString) + "%n", tr.getDate(), tr.getTime(), tr.getDescription(), tr.getVendor(), tr.getAmount());
+            }
+        }
+            System.out.println("===================================================================================================");
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
 
     /* ------------------------------------------------------------------
        Reports menu
