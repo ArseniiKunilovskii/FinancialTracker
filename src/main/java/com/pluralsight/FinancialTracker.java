@@ -81,7 +81,6 @@ public class FinancialTracker {
         } catch (Exception e) {
             System.out.println("Something went wrong");
         }
-
     }
 
     /* ------------------------------------------------------------------
@@ -124,9 +123,10 @@ public class FinancialTracker {
     }
 
     /**
-     * Same prompts as addDeposit.
-     * Amount must be entered as a positive number,
-     * then converted to a negative amount before storing.
+     * Prompt for ONE date+time string in the format "yyyy-MM-dd HH:mm:ss", description, vendor, amount.
+     * Validate that the amount entered is positive.
+     * Store the amount as-is (negative) and append to the file.
+     * @param scanner - scanner used to prompts user
      */
     private static void addPayment(Scanner scanner) {
         try {
@@ -186,7 +186,22 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
-    private static void displayLedger() { /* TODO – print all transactions in column format */ }
+    private static void displayLedger() {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("transactions.csv"));
+            String line;
+            String formatString = "%-12s| %-10s| %-28s| %-18s| %-10s|\n";
+            System.out.println("===================================================================================================");
+            System.out.printf((formatString) + "%n", "Date", "Time", "Description", "Vendor", "Amount");
+            while ((line = reader.readLine()) != null) {
+                String[] transaction = line.split("\\|");
+                System.out.printf("%-12s| %-10s| %-28s| %-18s| %-10s|\n", transaction[0], transaction[1], transaction[2], transaction[3], transaction[4]);
+            }
+            System.out.println("===================================================================================================");
+        } catch (Exception e) {
+            System.out.println("Something went wrong");
+        }
+    }
 
     private static void displayDeposits() { /* TODO – only amount > 0               */ }
 
