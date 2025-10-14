@@ -142,11 +142,11 @@ public class FinancialTracker {
             double amount = 0;
             //Validation that's making sure that here deposit is positive
             do {
-                System.out.println("Please enter the negative amount:");
+                System.out.println("Please enter the positive amount:");
                 amount = parseDouble(scanner.nextLine());
-            } while (amount > 0);
+            } while (amount < 0);
 
-            Transaction transaction = new Transaction(date, time, description, vendor, amount);
+            Transaction transaction = new Transaction(date, time, description, vendor, -amount);
             transactions.add(transaction);
             writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
             writer.close();
