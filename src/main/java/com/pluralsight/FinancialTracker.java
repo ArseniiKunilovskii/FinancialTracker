@@ -6,14 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
- * Capstone skeleton – personal finance tracker.
- * ------------------------------------------------
- * File format  (pipe-delimited)
- *     yyyy-MM-dd|HH:mm:ss|description|vendor|amount
- * A deposit has a positive amount; a payment is stored
- * as a negative amount.
- */
 public class FinancialTracker {
 
     /* ------------------------------------------------------------------
@@ -151,6 +143,10 @@ public class FinancialTracker {
         }
     }
 
+    /**
+     * This method writes transaction to the file
+     * @param transaction - transactions, that should be added
+     */
     public static void writeTransaction(Transaction transaction){
         try {
             if(FILE_NAME.isEmpty()){
