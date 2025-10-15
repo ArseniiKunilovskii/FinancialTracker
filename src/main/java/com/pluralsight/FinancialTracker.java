@@ -352,13 +352,127 @@ public class FinancialTracker {
     }
 
     private static void customSearch(Scanner scanner) {
-        // TODO – prompt for any combination of date range, description,
-        //        vendor, and exact amount, then display matches
-        System.out.println("Please enter the start date(yyyy-MM-dd):");
-        LocalDate start = LocalDate.parse(scanner.nextLine(), DATE_FMT);
-        System.out.println("Please enter the end date(yyyy-MM-dd):");
-        LocalDate end = LocalDate.parse(scanner.nextLine(), DATE_FMT);
-        filterTransactionsByDate(start,end);
+
+        boolean hasDateRange = false;
+        boolean hasDescription = false;
+        boolean hasVendor = false;
+        boolean hasAmount = false;
+
+        LocalDate start = null;
+        LocalDate end = null;
+        String vendor = "";
+        double amount = 0.0;
+        String description = "";
+
+        System.out.println("Do you want to enter a date range?(yes/no)");
+        if(scanner.nextLine().equalsIgnoreCase("yes")){
+            System.out.println("Please enter the start date(yyyy-MM-dd):");
+            start = parseDate(scanner.nextLine());
+            System.out.println("Please enter the end date(yyyy-MM-dd):");
+            end = parseDate(scanner.nextLine());
+            hasDateRange = true;
+        }
+
+
+        System.out.println("Do you want to enter the description?(yes/no)");
+        if (scanner.nextLine().equalsIgnoreCase("yes")){
+            System.out.println("Please enter the description:");
+            description = scanner.nextLine();
+            hasDescription = true;
+        }
+
+        System.out.println("Do you want to enter the vendor?(yes/no)");
+        if(scanner.nextLine().equalsIgnoreCase("yes")){
+            System.out.println("Please enter the vendor:");
+            vendor = scanner.nextLine();
+            hasVendor = true;
+        }
+
+        System.out.println("Do you want to enter the amount?(yes/no)");
+        if (scanner.nextLine().equalsIgnoreCase("yes")){
+            System.out.println("Please enter the amount:");
+            amount = Double.parseDouble(scanner.nextLine());
+            hasAmount = true;
+        }
+
+
+        if (hasDateRange&!hasAmount&!hasDescription&!hasVendor){
+            filterTransactionsByDate(start, end);
+        }
+        else if (hasVendor&!hasAmount&!hasDescription&!hasDateRange){
+            filterTransactionsByVendor(vendor);
+        }
+        else{
+            filterTransactionsByCustoms(start, end, vendor, description, amount);
+        }
+    }
+
+    private static void filterTransactionsByCustoms(LocalDate start, LocalDate end, String vendor, String description, double amount) {
+        System.out.println("=========================================================================================");
+        System.out.println("Date        | Time      | Description                 | Vendor              | Amount    |");
+        boolean printed = false;
+        if (start == null&&vendor.equalsIgnoreCase("")&&amount==0.0&&!description.equalsIgnoreCase("")){
+            for(Transaction transaction : transactions){
+                if (transaction.getDescription().equalsIgnoreCase(description)){
+                    PrintOut(transaction);
+                    printed = true;
+                }
+            }
+        } else if (start == null&&vendor.equalsIgnoreCase("")&&amount!=0.0&&description.equalsIgnoreCase("")) {
+            for(Transaction transaction : transactions){
+                if (transaction.getAmount()==amount){
+                    PrintOut(transaction);
+                    printed = true;
+                }
+            }
+        } else if (start!=null&&!vendor.equalsIgnoreCase("")&&description.equalsIgnoreCase("")&&amount==0.0) {
+            for(Transaction transaction : transactions){
+                if (transaction.getVendor().equalsIgnoreCase(vendor)&&transaction.getDate().isAfter(start)&&transaction.getDate().isBefore(end)){
+                    PrintOut(transaction);
+                    printed = true;
+                }
+            }
+        } else if (start!=null&&!vendor.equalsIgnoreCase("")&&!description.equalsIgnoreCase("")&&amount==0.0) {
+            for(Transaction transaction : transactions){
+                if (transaction.getVendor().equalsIgnoreCase(vendor)&&transaction.getDate().isAfter(start)&&transaction.getDate().isBefore(end)&&transaction.getDescription().equalsIgnoreCase(description)){
+                    PrintOut(transaction);
+                    printed = true;
+                }
+            }
+        } else if (start!=null&&!vendor.equalsIgnoreCase("")&&!description.equalsIgnoreCase("")&&amount!=0.0) {
+            for(Transaction transaction : transactions){
+                if (transaction.getVendor().equalsIgnoreCase(vendor)&&transaction.getDate().isAfter(start)&&transaction.getDate().isBefore(end)&&transaction.getDescription().equalsIgnoreCase(description)&&transaction.getAmount()==amount){
+                    PrintOut(transaction);
+                    printed = true;
+                }
+            }
+        }else if (start==null&&!vendor.equalsIgnoreCase("")&&!description.equalsIgnoreCase("")&&amount==0.0) {
+            for(Transaction transaction : transactions){
+                if (transaction.getVendor().equalsIgnoreCase(vendor)&&transaction.getDescription().equalsIgnoreCase(description)){
+                    PrintOut(transaction);
+                    printed = true;
+                }
+            }
+        } else if (start==null&&!vendor.equalsIgnoreCase("")&&!description.equalsIgnoreCase("")&&amount!=0.0) {
+            for(Transaction transaction : transactions){
+                if (transaction.getVendor().equalsIgnoreCase(vendor)&&transaction.getDescription().equalsIgnoreCase(description)&&transaction.getAmount()==amount){
+                    PrintOut(transaction);
+                    printed = true;
+                }
+            }
+        }else if (start==null&&vendor.equalsIgnoreCase("")&&!description.equalsIgnoreCase("")&&amount!=0.0) {
+            for(Transaction transaction : transactions){
+                if (transaction.getDescription().equalsIgnoreCase(description)&&transaction.getAmount()==amount){
+                    PrintOut(transaction);
+                    printed = true;
+                }
+            }
+        }
+
+        if (!printed){
+            System.out.println("Sorry! There is nothing for this parameters.");
+        }
+        System.out.println("=========================================================================================");
     }
 
     /**
