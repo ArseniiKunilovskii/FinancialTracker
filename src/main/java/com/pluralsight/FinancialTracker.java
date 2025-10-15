@@ -4,7 +4,6 @@ import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 /*
@@ -333,7 +332,7 @@ public class FinancialTracker {
 
     /**
      * Prints out the transactions from the selected vendor
-     * @param vendor - vendor from which all transactions should be printed
+     * @param vendor - String vendor from which all transactions should be printed
      */
     private static void filterTransactionsByVendor(String vendor) {
         System.out.println("=========================================================================================");
@@ -411,6 +410,14 @@ public class FinancialTracker {
         }
     }
 
+    /**
+     * This method allows to filter all possible cases of custom search, except when there is only date range, or only vendor.
+     * @param start - LocalDate - from when method should start
+     * @param end - LocalDate -  to when method should end.
+     * @param vendor - String vendor from which all transactions should be printed
+     * @param description - String with description that should be in printed transaction
+     * @param amount - double with amount that should be in printed transaction
+     */
     private static void filterTransactionsByCustoms(LocalDate start, LocalDate end, String vendor, String description, double amount) {
         System.out.println("=========================================================================================");
         System.out.println("Date        | Time      | Description                 | Vendor              | Amount    |");
