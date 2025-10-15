@@ -351,6 +351,10 @@ public class FinancialTracker {
         System.out.println("=========================================================================================");
     }
 
+    /**
+     * This method allows to make a custom search, user chooses what to enter, and then matches is printed.
+     * @param scanner - to input option
+     */
     private static void customSearch(Scanner scanner) {
 
         boolean hasDateRange = false;
