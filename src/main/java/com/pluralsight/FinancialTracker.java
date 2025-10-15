@@ -94,7 +94,6 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true));
             System.out.println("Please enter the date and time of the transaction(yyyy-MM-dd HH:mm:ss): ");
             String[] dateAndTime =  scanner.nextLine().split(" ");
             LocalDate date = LocalDate.parse(dateAndTime[0], DATE_FMT);
@@ -112,8 +111,8 @@ public class FinancialTracker {
 
             Transaction transaction = new Transaction(date, time, description, vendor, amount);
             transactions.add(transaction);
-            writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
-            writer.close();
+            writeTransaction(transaction);
+
             System.out.println("New deposit has been added to the transactions");
         } catch (Exception e){
             System.out.println("Something went wrong! Please try again.");
@@ -129,7 +128,6 @@ public class FinancialTracker {
      */
     private static void addPayment(Scanner scanner) {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("transactions.csv", true));
             System.out.println("Please enter the date and time of the transaction(yyyy-MM-dd HH:mm:ss): ");
             String[] dateAndTime =  scanner.nextLine().split(" ");
             LocalDate date = LocalDate.parse(dateAndTime[0], DATE_FMT);
@@ -144,17 +142,28 @@ public class FinancialTracker {
                 System.out.println("Please enter the positive amount:");
                 amount = parseDouble(scanner.nextLine());
             } while (amount < 0);
-
             Transaction transaction = new Transaction(date, time, description, vendor, -amount);
             transactions.add(transaction);
-            writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
-            writer.close();
+            writeTransaction(transaction);
             System.out.println("New payment has been added to the transactions");
         } catch (Exception e){
             System.out.println("Something went wrong! Please try again.");
         }
     }
 
+    public static void writeTransaction(Transaction transaction){
+        try {
+            if(FILE_NAME.isEmpty()){
+                System.out.println("Please provide file name first!");
+            }else {
+                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+                writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
+                writer.close();
+            }
+        } catch (Exception e){
+            System.out.println("Something went wrong");
+        }
+    }
     /* ------------------------------------------------------------------
        Ledger menu
        ------------------------------------------------------------------ */
