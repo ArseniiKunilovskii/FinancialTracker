@@ -497,7 +497,10 @@ public class FinancialTracker {
      * @return - LocalDate that was it inputted string
      */
     private static LocalDate parseDate(String s) {
-        return LocalDate.parse(s, DATE_FMT);
+        if(!s.isEmpty()) {
+            return LocalDate.parse(s, DATE_FMT);
+        }
+        return null;
     }
 
     /**
@@ -506,7 +509,10 @@ public class FinancialTracker {
      * @return - LocalTime that was it inputted string
      */
     private static LocalTime parseTime (String s) {
-        return LocalTime.parse(s,TIME_FMT);
+        if(!s.isEmpty()) {
+            return LocalTime.parse(s, TIME_FMT);
+        }
+        return null;
     }
 
     /**
@@ -515,7 +521,10 @@ public class FinancialTracker {
      * @return - double that was it inputted string
      */
     private static Double parseDouble(String s) {
-        return Double.parseDouble(s);
+        if(!s.isEmpty()) {
+            return Double.parseDouble(s);
+        }
+        return -1.;
     }
 
     /**
