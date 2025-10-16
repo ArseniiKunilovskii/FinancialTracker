@@ -43,9 +43,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 
 ## Demo
 
-Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
-![giphy.gif](../../../../../../AppData/Local/Temp/giphy.gif)
-![Application Screenshot](path/to/your/screenshot.png)
+[giphy.gif](https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnB2cnVvNWE3Z2E4eTR4amZqazF5b2k2b2RtdmxwODhnc25panpyZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Zc5phoexeKl22TC39y/giphy.gif)
 
 ## Future Work
 
@@ -57,9 +55,9 @@ Outline potential future enhancements or functionalities you might consider addi
 ## Resources
 
 List resources such as tutorials, articles, or documentation that helped you during the project.
--[Potato Sensei](https://chatgpt.com/g/g-681d378b0c90819197b16e49abe384ec-potato-sensei)
-- [Java Programming Tutorial](https://www.example.com)
-- [Effective Java](https://www.example.com)
+
+- [Potato Sensei](https://chatgpt.com/g/g-681d378b0c90819197b16e49abe384ec-potato-sensei)
+- [Oracle Help Center](https://docs.oracle.com/javase/8/docs/api/overview-summary.html)
 
 ## Team Members
 
