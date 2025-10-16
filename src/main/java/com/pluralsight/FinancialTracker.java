@@ -69,8 +69,12 @@ public class FinancialTracker {
                 String[] transaction = line.split("\\|");
                 transactions.add(new Transaction(parseDate(transaction[0]), parseTime(transaction[1]), transaction[2], transaction[3], parseDouble(transaction[4])));
             }
-        } catch (Exception e) {
-            System.out.println("Something went wrong");
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.err.println("Data Error: A line in the file is corrupt or incomplete.");
+        } catch (java.io.FileNotFoundException e) {
+            System.err.println("File is not found");
+        } catch (java.io.IOException e){
+            System.err.println("An unexpected error occurred while reading the file.");
         }
     }
 
@@ -106,8 +110,10 @@ public class FinancialTracker {
             writeTransaction(transaction);
 
             System.out.println("New deposit has been added to the transactions");
+        }catch (java.time.format.DateTimeParseException e){
+            System.err.println("Incorrect input: The data or time in the wrong format");
         } catch (Exception e){
-            System.out.println("Something went wrong! Please try again.");
+            System.err.println("Something went wrong! Please try again.");
         }
 
     }
@@ -138,8 +144,10 @@ public class FinancialTracker {
             transactions.add(transaction);
             writeTransaction(transaction);
             System.out.println("New payment has been added to the transactions");
+        } catch (java.time.format.DateTimeParseException e){
+            System.err.println("Incorrect input: The data or time in the wrong format");
         } catch (Exception e){
-            System.out.println("Something went wrong! Please try again.");
+            System.err.println("Something went wrong! Please try again.");
         }
     }
 
@@ -156,6 +164,8 @@ public class FinancialTracker {
                 writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
                 writer.close();
             }
+        } catch (java.io.FileNotFoundException e) {
+            System.err.println("File is not found");
         } catch (Exception e){
             System.out.println("Something went wrong");
         }
