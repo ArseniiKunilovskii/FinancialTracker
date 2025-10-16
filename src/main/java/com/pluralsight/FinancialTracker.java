@@ -16,11 +16,9 @@ public class FinancialTracker {
 
     private static final String DATE_PATTERN = "yyyy-MM-dd";
     private static final String TIME_PATTERN = "HH:mm:ss";
-    private static final String DATETIME_PATTERN = DATE_PATTERN + " " + TIME_PATTERN;
 
     private static final DateTimeFormatter DATE_FMT = DateTimeFormatter.ofPattern(DATE_PATTERN);
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern(TIME_PATTERN);
-    private static final DateTimeFormatter DATETIME_FMT = DateTimeFormatter.ofPattern(DATETIME_PATTERN);
 
     /* ------------------------------------------------------------------
        Main menu
@@ -63,7 +61,7 @@ public class FinancialTracker {
      */
     public static void loadTransactions(String fileName) {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("transactions.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] transaction = line.split("\\|");
@@ -98,7 +96,7 @@ public class FinancialTracker {
             String description = scanner.nextLine();
             System.out.println("Please enter the vendor:");
             String vendor = scanner.nextLine();
-            double amount = 0;
+            double amount;
             //Validation that's making sure that here deposit is positive
             do {
                 System.out.println("Please enter the positive amount:");
@@ -134,7 +132,7 @@ public class FinancialTracker {
             String description = scanner.nextLine();
             System.out.println("Please enter the vendor:");
             String vendor = scanner.nextLine();
-            double amount = 0;
+            double amount;
             //Validation that's making sure that here deposit is positive
             do {
                 System.out.println("Please enter the positive amount:");
@@ -157,13 +155,9 @@ public class FinancialTracker {
      */
     public static void writeTransaction(Transaction transaction){
         try {
-            if(FILE_NAME.isEmpty()){
-                System.out.println("Please provide file name first!");
-            }else {
-                BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
-                writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
-                writer.close();
-            }
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true));
+            writer.write("\n"+transaction.getDate()+"|"+transaction.getTime()+"|"+transaction.getDescription()+"|"+transaction.getVendor()+"|"+transaction.getAmount());
+            writer.close();
         } catch (java.io.FileNotFoundException e) {
             System.err.println("File is not found");
         } catch (Exception e){
