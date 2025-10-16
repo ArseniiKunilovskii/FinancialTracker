@@ -1,15 +1,21 @@
-# Project Title
+# Financial Tracker
 
 ## Description of the Project
-
-Briefly describe what this Java console application does. Mention its purpose and who the intended users are. Explain the main functionality and what problems it aims to solve.
+This is a Java console application designed to track simple personal or small business financial transactions. 
+Its purpose is to provide a simple, command-line interface for quickly logging deposits (credits) and payments (debits), 
+storing them persistently in a CSV file, and generating various reports. The intended users are anyone who needs a quick, 
+non-GUI solution for basic, chronological bookkeeping and data analysis. 
 
 ## User Stories
 
-List the user stories that guided the development of your application. Format these stories as: "As a [type of user], I want [some goal] so that [some reason]."
-
-- As a user, I want to be able to input my data, so that the application can process it accordingly.
-- As a user, I want to receive immediate feedback, so I can understand what to do next.
+- As a user I should be able to use the financial tracker properly, so I need a functional to read from file with transactions in order to store info, in a nice view.
+- As a user I should be able to make the deposit, so I need to have this function in the Financial tracker.
+- As a user I should be able to make the payment, so I need to have this function in the Financial tracker.
+- As a user I should be able to view the Ledger, so I need to have this function in the Financial tracker.
+- As a user I should be able to create reports with different options, so I can track all the transactions within certain date range.
+- As a user I should be able to sort any of those parameters, so I can find what I need.
+- As a user I should be able to view the Reports, so I need to have this function in the Financial tracker.
+- As a user I should be able to understand what Financial Tracker doing, and that it is doing everything efficient, so I need a read me file, and well done methods.
 
 ## Setup
 
@@ -38,7 +44,7 @@ Follow these steps to get your application running within IntelliJ IDEA:
 ## Demo
 
 Include screenshots or GIFs that show your application in action. Use tools like [Giphy Capture](https://giphy.com/apps/giphycapture) to record a GIF of your application.
-
+![giphy.gif](../../../../../../AppData/Local/Temp/giphy.gif)
 ![Application Screenshot](path/to/your/screenshot.png)
 
 ## Future Work
@@ -51,18 +57,17 @@ Outline potential future enhancements or functionalities you might consider addi
 ## Resources
 
 List resources such as tutorials, articles, or documentation that helped you during the project.
-
+-[Potato Sensei](https://chatgpt.com/g/g-681d378b0c90819197b16e49abe384ec-potato-sensei)
 - [Java Programming Tutorial](https://www.example.com)
 - [Effective Java](https://www.example.com)
 
 ## Team Members
 
-- **Name 1** - Specific contributions or roles.
-- **Name 2** - Specific contributions or roles.
+-**Arsenii Kunilovskii** - only member
 
 ## Thanks
 
 Express gratitude towards those who provided help, guidance, or resources:
 
-- Thank you to [Mentor's Name] for continuous support and guidance.
-- A special thanks to all teammates for their dedication and teamwork.
+- Thank you to Raymond for continuous support and guidance.
+
